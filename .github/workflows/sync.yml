@@ -1,0 +1,44 @@
+name: Sync YouTube
+
+on:
+  workflow_dispatch: 
+  schedule:
+    - cron: "0 0 * * *"
+  
+  
+permissions:
+  contents: write
+
+jobs:
+
+  fetch:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v5
+    - name: Install yt-dlp
+      run: |
+        sudo apt install ffmpeg -y
+        sudo curl -L -o /usr/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
+        sudo chmod +x /usr/bin/yt-dlp
+        
+    - name: Start to Download it
+      run: |
+        mkdir -p $GITHUB_WORKSPACES/A
+        mkdir -p $GITHUB_WORKSPACES/B
+        mkdir -p $GITHUB_WORKSPACES/C
+        yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "$GITHUB_WORKSPACES/A" https://youtube.com/playlist?list=PLsfM97vWSvl1a5Fr3ZthEmJeC69xhKld
+        
+    - name: Push - Vintage Computer Series
+      uses: softprops/action-gh-release@v2
+      with:
+          tag_name: ${{ env.TOR_VERSION }}
+          name: ${{ env.TOR_VERSION }}
+          files: |
+            A/*.mp4
+          preserve_order: true
+          make_latest: true
+          
+env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
