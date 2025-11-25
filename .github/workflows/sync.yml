@@ -25,10 +25,10 @@ jobs:
         
     - name: Start to Download it
       run: |
-        mkdir -p $GITHUB_WORKSPACES/A
-        mkdir -p $GITHUB_WORKSPACES/B
-        mkdir -p $GITHUB_WORKSPACES/C
-        yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "$GITHUB_WORKSPACES/A" https://youtube.com/playlist?list=PLsfM97vWSvl1a5Fr3ZthEmJeC69xhKld
+        mkdir -p $GITHUB_WORKSPACE/A
+        mkdir -p $GITHUB_WORKSPACE/B
+        mkdir -p $GITHUB_WORKSPACE/C
+        yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "$GITHUB_WORKSPACE/A" https://youtube.com/playlist?list=PLsfM97vWSvl1a5Fr3ZthEmJeC69xhKld
         
     - name: Push - Vintage Computer Series
       uses: softprops/action-gh-release@v2
