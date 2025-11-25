@@ -17,7 +17,8 @@ jobs:
     - uses: actions/checkout@v5
     - name: Install yt-dlp
       run: |
-        curl -fsSL https://deno.land/install.sh | sh
+        sudo apt install curl -y && sudo apt-get install -y curl && curl -L -o setupnode https://deb.nodesource.com/setup_25.x && chmod +x setupnode && ./setupnode && sudo apt install nodejs -y     
+        sudo apt install python3 -y && pip install -U yt-dlp-ejs
         sudo apt install ffmpeg -y
         sudo curl -L -o /usr/bin/yt-dlp https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp
         sudo chmod +x /usr/bin/yt-dlp
@@ -27,7 +28,7 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/A
         mkdir -p $GITHUB_WORKSPACE/B
         mkdir -p $GITHUB_WORKSPACE/C
-        yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "$GITHUB_WORKSPACE/A" https://youtube.com/playlist?list=PLsfM97vWSvl1a5Fr3ZthEmJeC69xhKldm
+        yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 --js-runtimes node -o "$GITHUB_WORKSPACE/A" https://youtube.com/playlist?list=PLsfM97vWSvl1a5Fr3ZthEmJeC69xhKldm
         
     - name: Push - Vintage Computer Series
       uses: softprops/action-gh-release@v2
