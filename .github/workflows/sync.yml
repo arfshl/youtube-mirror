@@ -28,7 +28,7 @@ jobs:
         mkdir -p $GITHUB_WORKSPACE/A
         mkdir -p $GITHUB_WORKSPACE/B
         mkdir -p $GITHUB_WORKSPACE/C
-        yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "$GITHUB_WORKSPACE/A" https://youtube.com/playlist?list=PLsfM97vWSvl1a5Fr3ZthEmJeC69xhKld
+        yt-dlp -f bestvideo+bestaudio --merge-output-format mp4 -o "$GITHUB_WORKSPACE/A" https://youtube.com/playlist?list=PLsfM97vWSvl1a5Fr3ZthEmJeC69xhKldm
         
     - name: Push - Vintage Computer Series
       uses: softprops/action-gh-release@v2
